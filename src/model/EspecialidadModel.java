@@ -3,6 +3,7 @@ package model;
 import database.CRUD;
 import database.ConfigDB;
 import entity.Especialidad;
+import entity.Especialidad;
 
 import javax.print.attribute.standard.JobPriority;
 import javax.swing.*;
@@ -61,11 +62,94 @@ public class EspecialidadModel implements CRUD {
 
     @Override
     public boolean update(Object obj) {
-        return false;
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspe = new Especialidad();
+        boolean isUpdate = false;
+        try {
+            String sql = "UPDATE Especialidad SET nombre=?,descripcion=? WHERE id_especialidad = ?;";
+            PreparedStatement objPrepared = objConnection.prepareStatement(sql);
+            objPrepared.setString(1, objEspe.getNombre());
+            objPrepared.setString(2, objEspe.getDescripcion());
+            objPrepared.setInt(3,objEspe.getId_especialidad());
+            int totalAffectedRows = objPrepared.executeUpdate();
+            if (totalAffectedRows >0){
+                isUpdate = true;
+                JOptionPane.showMessageDialog(null,"Update was succesfull");
+                JOptionPane.showMessageDialog(null,objEspe.toString());
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return isUpdate;
     }
 
     @Override
     public boolean delete(Object obj) {
-        return false;
+        Especialidad objEspe = (Especialidad) obj;
+        Connection objConnection = ConfigDB.openConnection();
+        boolean isDeleted = false;
+        try {
+            String sql = "DELETE FROM Especialidad WHERE id_especialidad=?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setInt(1,objEspe.getId_especialidad());
+            int totalAffectedRows = objPrepare.executeUpdate();
+            if (totalAffectedRows>0){
+                isDeleted= true;
+                JOptionPane.showMessageDialog(null,"Delete was succesfull");
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return isDeleted;
+    }
+
+    public ArrayList<Especialidad> findByName(String name) {
+        ArrayList<Especialidad> listEspecialidad = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspecialidad = null;
+        try {
+            String sql = "SELECT * FROM Especialidad WHERE nombre LIKE ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1, "%" + name + "%");
+            ResultSet objResult = objPrepare.executeQuery();
+            while (objResult.next()) {
+                objEspecialidad = new Especialidad();
+                objEspecialidad.setId_especialidad(objResult.getInt("id_especialidad"));
+                objEspecialidad.setNombre(objResult.getString("nombre"));
+                objEspecialidad.setDescripcion(objResult.getString("descripcion"));
+                listEspecialidad.add(objEspecialidad);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return listEspecialidad;
+    }
+
+    public Especialidad findById(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+        Especialidad objEspecialidad = null;
+
+        try {
+            String sql = "SELECT * FROM Especialidad WHERE id_especialidad = ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+
+            objPrepare.setInt(1, id);
+
+            ResultSet objResult = objPrepare.executeQuery();
+            if (objResult.next()) {
+                objEspecialidad = new Especialidad();
+                objEspecialidad.setNombre(objResult.getString("nombre"));
+                objEspecialidad.setDescripcion(objResult.getString("descripcion"));
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+
+        return objEspecialidad;
     }
 }
