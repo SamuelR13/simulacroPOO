@@ -1,4 +1,5 @@
 import controller.EspecialidadController;
+import controller.MedicoController;
 import controller.PacienteController;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ public class Main {
         String option = "";
         String optionEspe = "";
         String optionPaciente = "";
+        String optionMedico = "";
 
         do {
             option = JOptionPane.showInputDialog("""
@@ -109,6 +111,50 @@ public class Main {
                     }while (!optionPaciente.equals("9"));
                     break;
                 case "3":
+                    do {
+                        optionMedico = JOptionPane.showInputDialog("""
+                                1. Listar todos los Medicos
+                                2. Agregar Medico
+                                3. Actualizar Medico
+                                4. Eliminar Medico
+                                5. Buscar Medico por Nombre
+                                6. Buscar Medico por Apellidos        
+                                7. Buscar Medico por Especialidad
+                                8. Buscar Medico por ID
+                                
+                                
+                                9. Regresar
+                                
+                                Ingresa una opción:
+                            
+                                """);
+                        switch (optionMedico){
+                            case "1":
+                                MedicoController.getAll();
+                                break;
+                            case "2":
+                                PacienteController.create();
+                                break;
+                            case "3":
+                                PacienteController.update();
+                                break;
+                            case "4":
+                                PacienteController.delete();
+                                break;
+                            case "5":
+                                PacienteController.getByName();
+                                break;
+                            case "6":
+                                PacienteController.getByLastname();
+                                break;
+                            case "7":
+                                PacienteController.getByDocument();
+                                break;
+                            case "8":
+                                PacienteController.getByBirthday();
+                                break;
+                        }
+                    }while (!optionMedico.equals("9"));
                     break;
                 case "4":
                     break;

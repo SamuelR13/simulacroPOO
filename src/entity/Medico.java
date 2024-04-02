@@ -4,15 +4,15 @@ public class Medico {
     private int id_medico;
     private String nombre;
     private String apellidos;
-    private Especialidad id_especialidad;
+    private Especialidad Especialidad;
 
     public Medico(){}
 
-    public Medico(int id_medico, String nombre, String apellidos, Especialidad id_especialidad) {
+    public Medico(int id_medico, String nombre, String apellidos, Especialidad Especialidad) {
         this.id_medico = id_medico;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.id_especialidad = id_especialidad;
+        this.Especialidad = Especialidad;
     }
 
     public int getId_medico() {
@@ -39,12 +39,12 @@ public class Medico {
         this.apellidos = apellidos;
     }
 
-    public Especialidad getId_especialidad() {
-        return id_especialidad;
+    public Especialidad getEspecialidad() {
+        return Especialidad;
     }
 
-    public void setId_especialidad(Especialidad id_especialidad) {
-        this.id_especialidad = id_especialidad;
+    public void setEspecialidad(Especialidad especialidad) {
+        this.Especialidad = especialidad;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Medico {
                 "id medico:" + id_medico + "\n" +
                 "nombre: " + nombre + "\n" +
                 "apellidos: " + apellidos + "\n" +
-                "especialidad: " + id_especialidad
+                "especialidad: " + Especialidad.getNombre()
                 ;
     }
 }
