@@ -20,7 +20,7 @@ public class PacienteModel implements CRUD {
         Connection objConnection = ConfigDB.openConnection();
         Paciente objPaciente = (Paciente) obj;
         try {
-            String sql = "INSERT INTO Paciente VALUES (?,?,?,?);";
+            String sql = "INSERT INTO Paciente (nombre,apellidos,fecha_nacimiento,documento_identidad) VALUES (?,?,?,?);";
             PreparedStatement objPrepare = objConnection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             objPrepare.setString(1, objPaciente.getNombre());
             objPrepare.setString(2, objPaciente.getApellidos());
@@ -68,10 +68,10 @@ public class PacienteModel implements CRUD {
     @Override
     public boolean update(Object obj) {
         Connection objConnection = ConfigDB.openConnection();
-        Paciente objPaciente = new Paciente();
+        Paciente objPaciente = (Paciente) obj;
         boolean isUpdate = false;
         try {
-            String sql = "UPDATE Paciente SET nombre=?,apellidos=?,fecha_nacimiento=?,documento_identidad=?, WHERE id_paciente = ?;";
+            String sql = "UPDATE Paciente SET nombre=?,apellidos=?,fecha_nacimiento=?,documento_identidad=? WHERE id_paciente = ?;";
             PreparedStatement objPrepared = objConnection.prepareStatement(sql);
             objPrepared.setString(1, objPaciente.getNombre());
             objPrepared.setString(2, objPaciente.getApellidos());
@@ -135,6 +135,82 @@ public class PacienteModel implements CRUD {
         ConfigDB.closeConnection();
         return listPaciente;
     }
+    public ArrayList<Paciente> findByLastname(String name) {
+        ArrayList<Paciente> listPaciente = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = "SELECT * FROM Paciente WHERE apellidos LIKE ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1, "%" + name + "%");
+            ResultSet objResult = objPrepare.executeQuery();
+            while (objResult.next()) {
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(objResult.getInt("id_paciente"));
+                objPaciente.setNombre(objResult.getString("nombre"));
+                objPaciente.setApellidos(objResult.getString("apellidos"));
+                objPaciente.setFecha_nacimiento(objResult.getString("fecha_nacimiento"));
+                objPaciente.setDocumento_identidad(objResult.getString("documento_identidad"));
+                listPaciente.add(objPaciente);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return listPaciente;
+    }
+    public ArrayList<Paciente> findByBirthdate(String name) {
+        ArrayList<Paciente> listPaciente = new ArrayList<>();
+        Connection objConnection = ConfigDB.openConnection();
+        Paciente objPaciente = null;
+        try {
+            String sql = "SELECT * FROM Paciente WHERE fecha_nacimiento LIKE ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+            objPrepare.setString(1, "%" + name + "%");
+            ResultSet objResult = objPrepare.executeQuery();
+            while (objResult.next()) {
+                objPaciente = new Paciente();
+                objPaciente.setId_paciente(objResult.getInt("id_paciente"));
+                objPaciente.setNombre(objResult.getString("nombre"));
+                objPaciente.setApellidos(objResult.getString("apellidos"));
+                objPaciente.setFecha_nacimiento(objResult.getString("fecha_nacimiento"));
+                objPaciente.setDocumento_identidad(objResult.getString("documento_identidad"));
+                listPaciente.add(objPaciente);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        ConfigDB.closeConnection();
+        return listPaciente;
+    }
+    public Paciente findByDocument(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+
+        Paciente objPaciente = null;
+
+        try {
+            String sql = "SELECT * FROM Paciente WHERE documento_identidad = ?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+
+            objPrepare.setInt(1, id);
+
+            ResultSet objResult = objPrepare.executeQuery();
+            if (objResult.next()) {
+                objPaciente = new Paciente();
+                objPaciente.setNombre(objResult.getString("nombre"));
+                objPaciente.setApellidos(objResult.getString("apellidos"));
+                objPaciente.setFecha_nacimiento(objResult.getString("fecha_nacimiento"));
+                objPaciente.setDocumento_identidad(objResult.getString("documento_identidad"));
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+
+        return objPaciente;
+    }
     public Paciente findById(int id) {
         Connection objConnection = ConfigDB.openConnection();
 
@@ -149,6 +225,7 @@ public class PacienteModel implements CRUD {
             ResultSet objResult = objPrepare.executeQuery();
             if (objResult.next()) {
                 objPaciente = new Paciente();
+                objPaciente.setId_paciente(objResult.getInt("id_paciente"));
                 objPaciente.setNombre(objResult.getString("nombre"));
                 objPaciente.setApellidos(objResult.getString("apellidos"));
                 objPaciente.setFecha_nacimiento(objResult.getString("fecha_nacimiento"));

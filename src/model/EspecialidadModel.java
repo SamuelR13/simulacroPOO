@@ -20,7 +20,7 @@ public class EspecialidadModel implements CRUD {
         Especialidad objEspe = (Especialidad) obj;
 
         try {
-            String sql="INSERT INTO Especialidad VALUES (?,?);";
+            String sql="INSERT INTO Especialidad (nombre,descripcion) VALUES (?,?);";
             PreparedStatement objPrepare = objConnection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             objPrepare.setString(1,objEspe.getNombre());
             objPrepare.setString(2,objEspe.getDescripcion());
@@ -63,10 +63,10 @@ public class EspecialidadModel implements CRUD {
     @Override
     public boolean update(Object obj) {
         Connection objConnection = ConfigDB.openConnection();
-        Especialidad objEspe = new Especialidad();
+        Especialidad objEspe = (Especialidad) obj;
         boolean isUpdate = false;
         try {
-            String sql = "UPDATE Especialidad SET nombre=?,descripcion=? WHERE id_especialidad = ?;";
+            String sql = "UPDATE Especialidad SET nombre=?, descripcion=? WHERE id_especialidad = ?;";
             PreparedStatement objPrepared = objConnection.prepareStatement(sql);
             objPrepared.setString(1, objEspe.getNombre());
             objPrepared.setString(2, objEspe.getDescripcion());
@@ -141,6 +141,7 @@ public class EspecialidadModel implements CRUD {
             if (objResult.next()) {
                 objEspecialidad = new Especialidad();
                 objEspecialidad.setNombre(objResult.getString("nombre"));
+                objEspecialidad.setId_especialidad(objResult.getInt("id_especialidad"));
                 objEspecialidad.setDescripcion(objResult.getString("descripcion"));
             }
 
