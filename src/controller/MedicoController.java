@@ -1,6 +1,7 @@
 package controller;
 
 import entity.Medico;
+import model.EspecialidadModel;
 import model.MedicoModel;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class MedicoController {
 
     public static String getAllString() {
         MedicoModel objModel = new MedicoModel();
-        String listMedico = "🤷LISTA DE MEDICOS\n";
+        String listMedico = "🤷LISTA DE MEDICOS"+"\n";
 
         for (Object iterador : objModel.findAll()) {
             //Convertimos del Object a Medico
@@ -29,33 +30,32 @@ public class MedicoController {
 
         return listMedico;
     }
-//    public static void create(){
-//        MedicoModel objModel = new MedicoModel();
-//        String nombre = JOptionPane.showInputDialog("Escribe el nombre del nuevo Medico\n");
-//        String apellidos = JOptionPane.showInputDialog("Escribe los apellidos del nuevo Medico\n");
-//        String fecha_nacimiento = JOptionPane.showInputDialog("Escribe la fecha de nacimiento del paciente\n"+"AAAA/MM/DD");
-//        String documento_identidad = JOptionPane.showInputDialog("Escribe el documento de identidad del paciente\n"+"Sin puntos ni comas ej:1000089781");
-//        Medico objMedico = new Medico();
-//        objMedico.setNombre(nombre);
-//        objMedico.setApellidos(apellidos);
-//        objMedico.setFecha_nacimiento(fecha_nacimiento);
-//        objMedico.setDocumento_identidad(documento_identidad);
-//        objModel.insert(objMedico);
-//        JOptionPane.showMessageDialog(null,objMedico.toString());
-//    }
-//    public static void delete() {
-//        MedicoModel objMedicoModel = new MedicoModel();
-//        String listMedico = getAllString();
-//        int idDelete = Integer.parseInt(JOptionPane.showInputDialog(listMedico + "\n Ingresa el ID del Medico que deseas eliminar\n"));
-//        Medico objMedico = MedicoModel.findById(idDelete);
-//
-//        if (objMedico== null){
-//            JOptionPane.showMessageDialog(null,"Medico no encontrada");
-//        }else {
-//            int confirm = JOptionPane.showConfirmDialog(null,"Estas seguro que deseas eliminar este Medico?\nTambién se eliminara todos lo relacionado con este Medico \n"+ objMedico.toString());
-//            if (confirm == 0) MedicoModel.delete(objMedico);
-//        }
-//    }
+    public static void create(){
+        MedicoModel objModel = new MedicoModel();
+        String nombre = JOptionPane.showInputDialog("Escribe el nombre del nuevo Medico\n");
+        String apellidos = JOptionPane.showInputDialog("Escribe los apellidos del nuevo Medico\n");
+        int id_especialidad = Integer.parseInt(JOptionPane.showInputDialog(EspecialidadController.getAllString()+"\n"+"Ingresa el ID de la Especialidad del nuevo Medico"));
+        EspecialidadModel objEspe = new EspecialidadModel();
+        Medico objMedico = new Medico();
+        objMedico.setNombre(nombre);
+        objMedico.setApellidos(apellidos);
+        objMedico.setEspecialidad(objEspe.findById(id_especialidad));
+        objModel.insert(objMedico);
+        JOptionPane.showMessageDialog(null,objMedico.toString());
+    }
+    public static void delete() {
+        MedicoModel objMedicoModel = new MedicoModel();
+        String listMedico = getAllString();
+        int idDelete = Integer.parseInt(JOptionPane.showInputDialog(listMedico + "\n Ingresa el ID del Medico que deseas eliminar\n"));
+        Medico objMedico = objMedicoModel.findById(idDelete);
+
+        if (objMedico== null){
+            JOptionPane.showMessageDialog(null,"Medico no encontrada");
+        }else {
+            int confirm = JOptionPane.showConfirmDialog(null,"Estas seguro que deseas eliminar este Medico?\nTambién se eliminara todos lo relacionado con este Medico \n"+ objMedico.toString());
+            if (confirm == 0) objMedicoModel.delete(objMedico);
+        }
+    }
 //    public static void update(){
 //        MedicoModel objModel = new MedicoModel();
 //        String listMedico = getAllString();

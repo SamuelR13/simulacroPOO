@@ -4,6 +4,7 @@ import database.CRUD;
 import database.ConfigDB;
 import entity.Especialidad;
 import entity.Medico;
+import entity.Medico;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -27,7 +28,7 @@ public class MedicoModel implements CRUD {
             objPrepare.execute();
             ResultSet objResult = objPrepare.getGeneratedKeys();
             while (objResult.next()){
-                objMedico.setId_medico(objResult.getInt("id_medico"));
+                objMedico.setId_medico(objResult.getInt(1));
             }
             JOptionPane.showMessageDialog(null, "Insert was succesful");
         }catch (Exception e){
@@ -107,5 +108,37 @@ public class MedicoModel implements CRUD {
         }
         ConfigDB.closeConnection();
         return isDeleted;
+    }
+    public Medico findById(int id) {
+        Connection objConnection = ConfigDB.openConnection();
+
+        Medico objMedico = null;
+
+        try {
+            String sql = "SELECT * FROM Medico INNER JOIN Especialidad ON Especialidad.id_especialidad=Medico.id_especialidad WHERE id_medico=?;";
+            PreparedStatement objPrepare = objConnection.prepareStatement(sql);
+
+            objPrepare.setInt(1, id);
+
+            ResultSet objResult = objPrepare.executeQuery();
+            if (objResult.next()) {
+                objMedico = new Medico();
+                Especialidad objEspecialidad = new Especialidad();
+                objMedico.setId_medico(objResult.getInt("Medico.id_medico"));
+                objMedico.setNombre(objResult.getString("Medico.nombre"));
+                objMedico.setApellidos(objResult.getString("Medico.apellidos"));
+                objEspecialidad.setId_especialidad(objResult.getInt("Especialidad.id_especialidad"));
+                objEspecialidad.setNombre(objResult.getString("Especialidad.nombre"));
+                objEspecialidad.setDescripcion(objResult.getString("Especialidad.descripcion"));
+                objMedico.setEspecialidad(objEspecialidad);
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+
+        ConfigDB.closeConnection();
+
+        return objMedico;
     }
 }

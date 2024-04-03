@@ -133,13 +133,13 @@ public class Main {
                                 MedicoController.getAll();
                                 break;
                             case "2":
-                                PacienteController.create();
+                                MedicoController.create();
                                 break;
                             case "3":
                                 PacienteController.update();
                                 break;
                             case "4":
-                                PacienteController.delete();
+                                MedicoController.delete();
                                 break;
                             case "5":
                                 PacienteController.getByName();
