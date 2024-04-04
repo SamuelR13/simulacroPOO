@@ -136,22 +136,22 @@ public class Main {
                                 MedicoController.create();
                                 break;
                             case "3":
-                                PacienteController.update();
+                                MedicoController.update();
                                 break;
                             case "4":
                                 MedicoController.delete();
                                 break;
                             case "5":
-                                PacienteController.getByName();
+                                MedicoController.getByName();
                                 break;
                             case "6":
-                                PacienteController.getByLastname();
+                                MedicoController.getByLastname();
                                 break;
                             case "7":
-                                PacienteController.getByDocument();
+                                MedicoController.getByEspe();
                                 break;
                             case "8":
-                                PacienteController.getByBirthday();
+                                MedicoController.getById();
                                 break;
                         }
                     }while (!optionMedico.equals("9"));

@@ -8,7 +8,7 @@ import javax.swing.*;
 public class PacienteController {
     public static void getAll() {
         PacienteModel objModel = new PacienteModel();
-        String listPaciente = "🤷LISTA DE PACIENTES"+"\n";
+        String listPaciente = "LISTA DE PACIENTES"+"\n";
 
         for (Object iterador : objModel.findAll()) {
             Paciente objPaciente = (Paciente) iterador;
@@ -19,7 +19,7 @@ public class PacienteController {
 
     public static String getAllString() {
         PacienteModel objModel = new PacienteModel();
-        String listPaciente = "🤷LISTA DE PACIENTES\n";
+        String listPaciente = "LISTA DE PACIENTES\n";
 
         for (Object iterador : objModel.findAll()) {
             //Convertimos del Object a Paciente

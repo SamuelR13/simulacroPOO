@@ -1,7 +1,10 @@
 package controller;
 
+import entity.Especialidad;
+import entity.Medico;
 import entity.Medico;
 import model.EspecialidadModel;
+import model.MedicoModel;
 import model.MedicoModel;
 
 import javax.swing.*;
@@ -9,7 +12,7 @@ import javax.swing.*;
 public class MedicoController {
     public static void getAll() {
         MedicoModel objModel = new MedicoModel();
-        String listMedico = "🤷LISTA DE MEDICOS"+"\n";
+        String listMedico = "LISTA DE MEDICOS"+"\n";
 
         for (Object iterador : objModel.findAll()) {
             Medico objMedico = (Medico) iterador;
@@ -20,7 +23,7 @@ public class MedicoController {
 
     public static String getAllString() {
         MedicoModel objModel = new MedicoModel();
-        String listMedico = "🤷LISTA DE MEDICOS"+"\n";
+        String listMedico = "LISTA DE MEDICOS"+"\n";
 
         for (Object iterador : objModel.findAll()) {
             //Convertimos del Object a Medico
@@ -56,27 +59,77 @@ public class MedicoController {
             if (confirm == 0) objMedicoModel.delete(objMedico);
         }
     }
-//    public static void update(){
-//        MedicoModel objModel = new MedicoModel();
-//        String listMedico = getAllString();
-//        int searchId =  Integer.parseInt(JOptionPane.showInputDialog(null,  listMedico + "\nIngresa el ID del Medico que deseas actualizar"));
-//        Medico objMedico = objModel.findById(searchId);
-//
-//        if(objMedico==null){
-//            JOptionPane.showMessageDialog(null,"Medico no encontrado");
-//        }else{
-//            String nombre = JOptionPane.showInputDialog("Escribe el nuevo nombre del Medico\n",objMedico.getNombre());
-//            String apellidos = JOptionPane.showInputDialog("Escribe los nuevos apellidos del nuevo Medico\n",objMedico.getApellidos());
-//            String fecha_nacimiento = JOptionPane.showInputDialog("Escribe la nueva fecha de nacimiento del paciente\n"+"AAAA/MM/DD",objMedico.getFecha_nacimiento());
-//            String documento_identidad = JOptionPane.showInputDialog("Escribe el nuevo documento de identidad del paciente\n"+"Sin puntos ni comas ej:1000089781",objMedico.getDocumento_identidad());
-//            objMedico.setId_paciente(objMedico.getId_paciente());
-//            objMedico.setNombre(nombre);
-//            objMedico.setApellidos(apellidos);
-//            objMedico.setFecha_nacimiento(fecha_nacimiento);
-//            objMedico.setDocumento_identidad(documento_identidad);
-//            System.out.println(objMedico);
-//            objModel.update(objMedico);
-//        }
-//
-//    }
+    public static void update(){
+        MedicoModel objModel = new MedicoModel();
+        String listMedico = getAllString();
+        int searchId =  Integer.parseInt(JOptionPane.showInputDialog(null,  listMedico + "\nIngresa el ID del Medico que deseas actualizar"));
+        Medico objMedico = objModel.findById(searchId);
+
+        if(objMedico==null){
+            JOptionPane.showMessageDialog(null,"Medico no encontrado");
+        }else{
+            String nombre = JOptionPane.showInputDialog("Escribe el nuevo nombre del Medico\n",objMedico.getNombre());
+            String apellidos = JOptionPane.showInputDialog("Escribe los nuevos apellidos del Medico\n",objMedico.getApellidos());
+            int id_especialidad = Integer.parseInt(JOptionPane.showInputDialog(EspecialidadController.getAllString()+"\n"+"Ingresa el ID de la Especialidad del nuevo Medico\n",objMedico.getEspecialidad().getId_especialidad()));
+            EspecialidadModel objEspe = new EspecialidadModel();
+            objMedico.setNombre(nombre);
+            objMedico.setApellidos(apellidos);
+            objMedico.setEspecialidad(objEspe.findById(id_especialidad));
+            System.out.println(objMedico);
+            objModel.update(objMedico);
+        }
+
+    }
+    public static void getByName(){
+        MedicoModel objModel = new MedicoModel();
+        String name = JOptionPane.showInputDialog("Ingresa el nombre");
+        String Medico = "";
+        for (Medico temporal :objModel.findByName(name)){
+            if (temporal == null) {
+                JOptionPane.showMessageDialog(null,"Medico no encontrado");
+            }else{
+                Medico+=temporal.toString()+"\n";
+            }
+        }
+        JOptionPane.showMessageDialog(null,Medico);
+    }
+    public static void getByLastname(){
+        MedicoModel objModel = new MedicoModel();
+        String name = JOptionPane.showInputDialog("Ingresa los apellidos");
+        String Medico = "";
+        for (Medico temporal :objModel.findByLastname(name)){
+            if (temporal == null) {
+                JOptionPane.showMessageDialog(null,"Apellidos no encontrados");
+            }else{
+                Medico+=temporal.toString()+"\n";
+            }
+        }
+        JOptionPane.showMessageDialog(null,Medico);
+    }
+
+
+    public static void getByEspe(){
+        MedicoModel objModel = new MedicoModel();
+        int name = Integer.parseInt(JOptionPane.showInputDialog(EspecialidadController.getAllString(), "Ingresa el ID de la especialidad que deseas Buscar"));
+        String Medico = "";
+        for (Medico temporal :objModel.findByEspe(name)){
+            if (temporal == null) {
+                JOptionPane.showMessageDialog(null,"Medicos no encontrados");
+            }else{
+                Medico+=temporal.toString()+"\n";
+            }
+        }
+        JOptionPane.showMessageDialog(null,Medico);
+    }
+    public static void getById(){
+        MedicoModel objModel = new MedicoModel();
+        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingresa el ID"));
+        Medico objEspe = new Medico();
+        objEspe = objModel.findById(id);
+        if (objEspe==null){
+            JOptionPane.showMessageDialog(null,"ID no encontrado");
+        }else{
+            JOptionPane.showMessageDialog(null,objEspe.toString());
+        }
+    }
 }

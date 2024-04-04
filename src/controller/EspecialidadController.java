@@ -10,7 +10,7 @@ public class EspecialidadController {
 
     public static void getAll() {
         EspecialidadModel objModel = new EspecialidadModel();
-        String listEspecialidad = "🤷LISTA DE ESPECIALIDADES"+"\n";
+        String listEspecialidad = "LISTA DE ESPECIALIDADES"+"\n";
 
         for (Object iterador : objModel.findAll()) {
             Especialidad objEspecialidad = (Especialidad) iterador;
@@ -22,7 +22,7 @@ public class EspecialidadController {
 
     public static String getAllString() {
         EspecialidadModel objModel = new EspecialidadModel();
-        String listEspecialidad = "🤷LISTA DE ESPECIALIDADES\n";
+        String listEspecialidad = "LISTA DE ESPECIALIDADES\n";
 
         for (Object iterador : objModel.findAll()) {
             //Convertimos del Object a Especialidad
