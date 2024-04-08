@@ -1,27 +1,25 @@
 package entity;
 
-public class Paciente {
-    private int id_paciente;
+public class Pasajero {
+    private int id_pasajero;
     private String nombre;
     private String apellidos;
-    private String fecha_nacimiento;
     private String documento_identidad;
 
-    public Paciente(){}
-    public Paciente(int id_paciente, String nombre, String apellidos, String fecha_nacimiento, String documento_identidad) {
-        this.id_paciente = id_paciente;
+    public Pasajero(){}
+    public Pasajero(int id_pasajero, String nombre, String apellidos, String documento_identidad) {
+        this.id_pasajero = id_pasajero;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.fecha_nacimiento = fecha_nacimiento;
         this.documento_identidad = documento_identidad;
     }
 
-    public int getId_paciente() {
-        return id_paciente;
+    public int getId_pasajero() {
+        return id_pasajero;
     }
 
-    public void setId_paciente(int id_paciente) {
-        this.id_paciente = id_paciente;
+    public void setId_pasajero(int id_pasajero) {
+        this.id_pasajero = id_pasajero;
     }
 
     public String getNombre() {
@@ -40,14 +38,6 @@ public class Paciente {
         this.apellidos = apellidos;
     }
 
-    public String getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha_nacimiento(String fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
-    }
-
     public String getDocumento_identidad() {
         return documento_identidad;
     }
@@ -59,10 +49,9 @@ public class Paciente {
     @Override
     public String toString() {
         return
-                "id paciente:" + id_paciente + "\n" +
+                "id paciente:" + id_pasajero + "\n" +
                 "nombre: " + nombre + "\n" +
                 "apellidos: " + apellidos + "\n" +
-                "fecha_nacimiento: " + fecha_nacimiento + "\n" +
                 "documento_identidad: " + documento_identidad + "\n"
                 ;
     }

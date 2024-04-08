@@ -1,24 +1,26 @@
-import controller.EspecialidadController;
-import controller.MedicoController;
-import controller.PacienteController;
+import controller.AvionController;
+import controller.ReservacionController;
+import controller.VueloController;
+import controller.PasajeroController;
 
 import javax.swing.*;
-import java.text.BreakIterator;
 
 public class Main {
     public static void main(String[] args) {
 
         String option = "";
-        String optionEspe = "";
-        String optionPaciente = "";
-        String optionMedico = "";
+        String optionAvion = "";
+        String optionPasajero   = "";
+        String optionVuelo = "";
+        String optionRe = "";
+
 
         do {
             option = JOptionPane.showInputDialog("""
-                    1. Menú Especialidades
-                    2. Menú Pacientes 
-                    3. Menú Medicos
-                    4. Menú Citas
+                    1. Menú Aviones
+                    2. Menú Pasajeros 
+                    3. Menú Vuelos
+                    4. Menú Reservaciones
                     
                     5. Salir
                     
@@ -28,135 +30,189 @@ public class Main {
             switch (option){
                 case "1":
                     do {
-                        optionEspe = JOptionPane.showInputDialog("""
-                                1. Listar todas las Especialidades
-                                2. Agregar Especialidad
-                                3. Actualizar Especialidad
-                                4. Eliminar Especialidad
-                                5. Buscar Especialidad por Nombre
-                                6. Buscar Especialidad por ID
+                        optionAvion = JOptionPane.showInputDialog("""
+                                1. Listar todas los Aviones
+                                2. Agregar Avion
+                                3. Actualizar Avion
+                                4. Eliminar Avion
+                                5. Buscar Avion por Modelo
+                                6. Buscar Avion por Capacidad
+                                7. Buscar Avion por ID
                                 
                                 
-                                7. Regresar
+                                8. Regresar
                                 
                                 Ingresa una opción:
                             
                                 """);
-                        switch (optionEspe){
+                        switch (optionAvion){
                             case "1":
-                                EspecialidadController.getAll();
+                                AvionController.getAll();
                                 break;
                             case "2":
-                                EspecialidadController.create();
+                                AvionController.create();
                                 break;
                             case "3":
-                                EspecialidadController.update();
+                                AvionController.update();
                                 break;
                             case "4":
-                                EspecialidadController.delete();
+                                AvionController.delete();
                                 break;
                             case "5":
-                                EspecialidadController.getByName();
+                                AvionController.getByModelo();
                                 break;
                             case "6":
-                                EspecialidadController.getById();
+                                AvionController.getByCapacidad();
+                                break;
+                            case "7":
+                                AvionController.getById();
                                 break;
                         }
-                    }while (!optionEspe.equals("7"));
+                    }while (!optionAvion.equals("8"));
                     break;
                 case "2":
                     do {
-                        optionPaciente = JOptionPane.showInputDialog("""
-                                1. Listar todos los Pacientes
-                                2. Agregar Paciente
-                                3. Actualizar Paciente
-                                4. Eliminar Paciente
-                                5. Buscar Paciente por Nombre
-                                6. Buscar Paciente por Apellidos        
-                                7. Buscar Paciente por Documento de identidad
-                                8. BUscar Paciente por Fecha de nacimiento
+                        optionPasajero  = JOptionPane.showInputDialog("""
+                                1. Listar todos los Pasajeros
+                                2. Agregar Pasajeros
+                                3. Actualizar Pasajeros
+                                4. Eliminar Pasajeros
+                                5. Buscar Pasajeros por Nombre
+                                6. Buscar Pasajeros por Apellido      
+                                7. Buscar Pasajeros por Documento de identidad
                                 
                                 
-                                9. Regresar
+                                
+                                8. Regresar
                                 
                                 Ingresa una opción:
                             
                                 """);
-                        switch (optionPaciente){
+                        switch (optionPasajero ){
                             case "1":
-                                PacienteController.getAll();
+                                PasajeroController.getAll();
                                 break;
                             case "2":
-                                PacienteController.create();
+                                PasajeroController.create();
                                 break;
                             case "3":
-                                PacienteController.update();
+                                PasajeroController.update();
                                 break;
                             case "4":
-                                PacienteController.delete();
+                                PasajeroController.delete();
                                 break;
                             case "5":
-                                PacienteController.getByName();
+                                PasajeroController.getByName();
                                 break;
                             case "6":
-                                PacienteController.getByLastname();
+                                PasajeroController.getByLastname();
                                 break;
                             case "7":
-                                PacienteController.getByDocument();
-                                break;
-                            case "8":
-                                PacienteController.getByBirthday();
+                                PasajeroController.getByDocument();
                                 break;
                         }
-                    }while (!optionPaciente.equals("9"));
+                    }while (!optionPasajero.equals("8"));
                     break;
                 case "3":
                     do {
-                        optionMedico = JOptionPane.showInputDialog("""
-                                1. Listar todos los Medicos
-                                2. Agregar Medico
-                                3. Actualizar Medico
-                                4. Eliminar Medico
-                                5. Buscar Medico por Nombre
-                                6. Buscar Medico por Apellidos        
-                                7. Buscar Medico por Especialidad
-                                8. Buscar Medico por ID
+                        optionVuelo = JOptionPane.showInputDialog("""
+                                1. Listar todos los Vuelos
+                                2. Agregar Vuelos
+                                3. Actualizar Vuelos
+                                4. Eliminar Vuelos
+                                5. Buscar Vuelos por Destino
+                                6. Buscar Vuelos por Fecha        
+                                7. Buscar Vuelos por Hora
+                                8. Buscar Vuelos por ID
+                                9. Buscar Vuelos por Avion
                                 
                                 
-                                9. Regresar
+                                10. Regresar
                                 
                                 Ingresa una opción:
                             
                                 """);
-                        switch (optionMedico){
+                        switch (optionVuelo){
                             case "1":
-                                MedicoController.getAll();
+                                VueloController.getAll();
                                 break;
                             case "2":
-                                MedicoController.create();
+                                VueloController.create();
                                 break;
                             case "3":
-                                MedicoController.update();
+                                VueloController.update();
                                 break;
                             case "4":
-                                MedicoController.delete();
+                                VueloController.delete();
                                 break;
                             case "5":
-                                MedicoController.getByName();
+                                VueloController.getByDestino();
                                 break;
                             case "6":
-                                MedicoController.getByLastname();
+                                VueloController.getByFecha();
                                 break;
                             case "7":
-                                MedicoController.getByEspe();
+                                VueloController.getByHora();
                                 break;
                             case "8":
-                                MedicoController.getById();
+                                VueloController.getById();
+                                break;
+                            case "9":
+                                VueloController.getByAvion();
                                 break;
                         }
-                    }while (!optionMedico.equals("9"));
+                    }while (!optionVuelo.equals("10"));
                     break;
                 case "4":
+                    do {
+                        optionRe = JOptionPane.showInputDialog("""
+                                1. Listar todas las Reservaciones 
+                                2. Agregar Reservacion
+                                3. Actualizar Reservacion
+                                4. Eliminar Reservacion
+                                5. Buscar Reservacion por Nombre del Pasajero 
+                                6. Buscar Reservacion por Apellidos del Pasajero        
+                                7. Buscar Reservacion por Documento del Pasajero
+                                8. Buscar Reservacion por ID del Vuelo 
+                                9. Buscar Reservacion por ID
+                                
+                                
+                                12. Regresar
+                                
+                                Ingresa una opción:
+                            
+                                """);
+                        switch (optionRe){
+                            case "1":
+                                ReservacionController.getAll();
+                                break;
+                            case "2":
+                                ReservacionController.create();
+                                break;
+                            case "3":
+                                ReservacionController.update();
+                                break;
+                            case "4":
+                                ReservacionController.delete();
+                                break;
+                            case "5":
+                                ReservacionController.getByPasajeroName();
+                                break;
+                            case "6":
+                                ReservacionController.getByPasajeroLastname();
+                                break;
+                            case "7":
+                                ReservacionController.getByPasajeroDocument();
+                                break;
+                            case "8":
+                                ReservacionController.getByVueloId();
+                                break;
+                            case "9":
+                                ReservacionController.getById();
+                                break;
+
+                        }
+                    }while (!optionRe.equals("12"));
                     break;
             }
         }while (!option.equals("5"));
