@@ -1,3 +1,4 @@
+import controller.CitaController;
 import controller.EspecialidadController;
 import controller.MedicoController;
 import controller.PacienteController;
@@ -12,6 +13,8 @@ public class Main {
         String optionEspe = "";
         String optionPaciente = "";
         String optionMedico = "";
+        String optionCita = "";
+
 
         do {
             option = JOptionPane.showInputDialog("""
@@ -157,6 +160,62 @@ public class Main {
                     }while (!optionMedico.equals("9"));
                     break;
                 case "4":
+                    do {
+                        optionCita = JOptionPane.showInputDialog("""
+                                1. Listar todas las Citas
+                                2. Agregar Cita
+                                3. Actualizar Cita
+                                4. Eliminar Cita
+                                5. Buscar Cita por Nombre del Paciente 
+                                6. Buscar Cita por Apellidos del Paciente        
+                                7. Buscar Cita por Documento del Paciente
+                                8. Buscar Cita por Nombre del Medico 
+                                9. Buscar Cita por Apellidos del Medico        
+                                10. Buscar Cita por ID del Medico
+                                11. Buscar Cita por ID
+                                
+                                
+                                12. Regresar
+                                
+                                Ingresa una opción:
+                            
+                                """);
+                        switch (optionCita){
+                            case "1":
+                                CitaController.getAll();
+                                break;
+                            case "2":
+                                CitaController.create();
+                                break;
+                            case "3":
+                                CitaController.update();
+                                break;
+                            case "4":
+                                CitaController.delete();
+                                break;
+                            case "5":
+                                CitaController.getByPacienteName();
+                                break;
+                            case "6":
+                                CitaController.getByPacienteLastname();
+                                break;
+                            case "7":
+                                CitaController.getByPacienteId();
+                                break;
+                            case "8":
+                                CitaController.getByMedicoName();
+                                break;
+                            case "9":
+                                CitaController.getByMedicoLastname();
+                                break;
+                            case "10":
+                                CitaController.getByMedicoId();
+                                break;
+                            case "11":
+                                CitaController.getById();
+                                break;
+                        }
+                    }while (!optionCita.equals("12"));
                     break;
             }
         }while (!option.equals("5"));

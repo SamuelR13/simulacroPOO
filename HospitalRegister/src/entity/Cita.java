@@ -2,18 +2,18 @@ package entity;
 
 public class Cita {
     private int id_cita;
-    private Paciente id_paciente;
-    private Medico id_medico;
+    private Paciente paciente;
+    private Medico medico;
     private String fecha_cita;
     private String hora_cita;
     private String motivo;
 
     public Cita(){}
 
-    public Cita(int id_cita, Paciente id_paciente, Medico id_medico, String fecha_cita, String hora_cita, String motivo) {
+    public Cita(int id_cita, Paciente paciente, Medico medico, String fecha_cita, String hora_cita, String motivo) {
         this.id_cita = id_cita;
-        this.id_paciente = id_paciente;
-        this.id_medico = id_medico;
+        this.paciente = paciente;
+        this.medico = medico;
         this.fecha_cita = fecha_cita;
         this.hora_cita = hora_cita;
         this.motivo = motivo;
@@ -27,20 +27,20 @@ public class Cita {
         this.id_cita = id_cita;
     }
 
-    public Paciente getId_paciente() {
-        return id_paciente;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setId_paciente(Paciente id_paciente) {
-        this.id_paciente = id_paciente;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
-    public Medico getId_medico() {
-        return id_medico;
+    public Medico getMedico() {
+        return medico;
     }
 
-    public void setId_medico(Medico id_medico) {
-        this.id_medico = id_medico;
+    public void setMedico(Medico medico) {
+        this.medico = medico;
     }
 
     public String getFecha_cita() {
@@ -71,8 +71,8 @@ public class Cita {
     public String toString() {
         return
                 "id cita: " + id_cita + "\n" +
-                "id paciente: " + id_paciente + "\n" +
-                "id medico: " + id_medico + "\n" +
+                "id paciente: " + paciente + "\n" +
+                "id medico: " + medico + "\n" +
                 "fecha cita" + fecha_cita + "\n" +
                 "hora cita" + hora_cita + "\n" +
                 "motivo: " + motivo + "\n"
